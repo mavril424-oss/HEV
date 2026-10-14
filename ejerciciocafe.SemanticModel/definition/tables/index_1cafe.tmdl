@@ -1,0 +1,82 @@
+table index_1cafe
+	lineageTag: bce360b0-bc1c-44f5-82f1-547a48bb83d6
+
+	column date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f99077a7-f924-482b-a82c-55adcde8157d
+		summarizeBy: none
+		sourceColumn: date
+
+		variation Variación
+			isDefault
+			relationship: c6b70461-a379-4c2b-9881-fe3050d34a37
+			defaultHierarchy: LocalDateTable_82fd0d91-ba5a-45a3-8803-ca37ed3a9748.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column datetime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 0ffaba6d-222b-47d5-82d7-1991d17866b0
+		summarizeBy: none
+		sourceColumn: datetime
+
+		variation Variación
+			isDefault
+			relationship: 7b482a33-80ed-4137-b96e-ab7cad1af3eb
+			defaultHierarchy: LocalDateTable_6b861f22-7aec-4c68-b2c5-d2442a957ace.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column cash_type
+		dataType: string
+		lineageTag: 83f8ae30-2199-423e-b5cc-ea5dab89f593
+		summarizeBy: none
+		sourceColumn: cash_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column card
+		dataType: string
+		lineageTag: aaff4f5e-76a7-49a9-bd21-614547b04c60
+		summarizeBy: none
+		sourceColumn: card
+
+		annotation SummarizationSetBy = Automatic
+
+	column money
+		dataType: decimal
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: fdb88217-07e8-46e8-804a-da46bfba19f0
+		summarizeBy: sum
+		sourceColumn: money
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	column coffee_name
+		dataType: string
+		lineageTag: 81fe103a-cf38-4644-99df-91387977f5bf
+		summarizeBy: none
+		sourceColumn: coffee_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition index_1cafe = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents("C:\Users\mavri\OneDrive\Documents\Universidad\4tocuatri\herramientas de visualizacion\index_1cafe.csv"),[Delimiter=",", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"date", type date}, {"datetime", type datetime}, {"cash_type", type text}, {"card", type text}, {"money", Currency.Type}, {"coffee_name", type text}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

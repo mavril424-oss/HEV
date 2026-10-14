@@ -1,0 +1,23 @@
+model Model
+	culture: es-ES
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-MX
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["index_1cafe"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table index_1cafe
+ref table DateTableTemplate_98806cc0-404c-463c-adba-0454c3043999
+ref table LocalDateTable_82fd0d91-ba5a-45a3-8803-ca37ed3a9748
+ref table LocalDateTable_6b861f22-7aec-4c68-b2c5-d2442a957ace
+ref table yomedida
+ref table 'Tabla medidas profe'
+
+ref cultureInfo es-ES
+

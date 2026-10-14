@@ -1,0 +1,66 @@
+table yomedida
+	lineageTag: 5e7cea2f-a561-40f0-ba47-dc0724438a22
+
+	measure 'Ventas Totales' = SUM('index_1cafe'[money])
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: f66e3309-1cce-4897-9526-7c930d06b60a
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	measure 'Total Transacciones' = COUNTROWS('index_1cafe')
+		formatString: 0
+		lineageTag: 2a432790-eaa5-412f-ab16-6b932e0563ae
+
+	measure 'Ticket Promedio' = DIVIDE([Ventas Totales], [Total Transacciones])
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: c69d1d02-32fd-430f-b89b-50abc9850856
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	measure 'Venta Promedio Día' =
+			
+			DIVIDE(
+			    [Ventas Totales],
+			    DISTINCTCOUNT('index_1cafe'[date])
+			)
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: a6389c24-7b5f-4eeb-ab52-50cacb9fc069
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	measure 'Transacciones Tarjeta' =
+			
+			CALCULATE(
+			    [Total Transacciones],
+			    'index_1cafe'[cash_type] = "card"
+			)
+		formatString: 0
+		lineageTag: 7cf02512-a675-479f-8766-8eca3ae543b9
+
+	measure '% Pago Tarjeta' =
+			
+			DIVIDE(
+			    [Transacciones Tarjeta],
+			    [Total Transacciones]
+			)
+		lineageTag: 998dd318-2ec4-4e28-940d-5f67ac4da559
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		formatString: 0
+		lineageTag: 98748778-43d5-46b5-ba65-31d40896736f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition yomedida = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = dc88e064ca064481b56f43a6fb0252d6
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

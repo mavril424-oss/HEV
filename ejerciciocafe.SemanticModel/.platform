@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "ejerciciocafe"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a3de2b40-5d5e-4252-b2a7-9d5a7ba74020"
+  }
+}

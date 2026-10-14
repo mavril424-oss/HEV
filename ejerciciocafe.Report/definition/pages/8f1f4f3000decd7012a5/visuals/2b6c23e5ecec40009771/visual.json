@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "2b6c23e5ecec40009771",
+  "position": {
+    "x": 130.84308574158109,
+    "y": 0,
+    "z": 1000,
+    "height": 68.478624313350849,
+    "width": 1016.1738715070456,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "☕ DASHBOARD DE VENTAS - CAFETERÍA",
+                    "textStyle": {
+                      "fontFamily": "Arial",
+                      "fontSize": "36pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

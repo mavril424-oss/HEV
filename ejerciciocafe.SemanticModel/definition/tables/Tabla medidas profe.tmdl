@@ -1,0 +1,81 @@
+table 'Tabla medidas profe'
+	lineageTag: 609a96de-e000-4c9b-97fd-a2194f0ddb1b
+
+	measure 'Total de Ingresos' = SUM('index_1cafe'[money])
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: 64932967-a2ae-459a-b555-e75d9e9b69aa
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	measure 'Total Transacciones2' = COUNTROWS('index_1cafe')
+		formatString: 0
+		lineageTag: a4412455-7447-46de-a9b5-2cff4e058161
+
+	measure Media = MEDIAN(index_1cafe[money])
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: c9832a79-c05a-4478-8c58-15b8d34e61f5
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	measure 'Ticket Promedio2' = DIVIDE([Total de Ingresos], [Total Transacciones], 0)
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: 2f0496b0-f5a7-4197-a3fe-08fdd2c72a40
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	measure 'Clientes Unicos' = DISTINCTCOUNT('index_1cafe'[card])
+		formatString: 0
+		lineageTag: 90813878-fd92-4f17-9cba-4cf5879d2437
+
+	measure 'Ingresos Tarjeta' =
+			
+			CALCULATE(
+			    [Total de Ingresos],
+			    'index_1cafe'[cash_type]= "card"
+			)
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: dfd6ec5c-bd1e-45a0-ae6a-72440f2024e9
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	measure 'Ingresos Efectivo' =
+			
+			CALCULATE(
+			    [Total de Ingresos],
+			    'index_1cafe'[cash_type] = "cash"
+			)
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: cd563517-c50d-48d2-8591-898bdba49cbf
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	measure '% Ingresos Tarjeta' =
+			
+			DIVIDE([Ingresos Tarjeta], [Total de Ingresos], 0)
+		lineageTag: 8ea113d8-d7df-46cc-822f-b87498405ced
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Producto Top Ingresos' =
+			
+			CALCULATE(
+			    SELECTEDVALUE('index_1cafe'[coffee_name]),
+			    TOPN(1, ALL('index_1cafe'[coffee_name]), [Total de Ingresos], DESC)
+			)
+		lineageTag: 02999f01-10e7-467c-a948-b2935b2b6847
+
+	column Column
+		formatString: 0
+		lineageTag: a5aeeb6f-311a-4c80-a551-12c2ffcb0b59
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Tabla medidas profe' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 15e3c70b43074fe191c668cebcbf813d
+

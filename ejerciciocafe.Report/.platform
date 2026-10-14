@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "ejerciciocafe"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "01d03041-7d3b-4d0a-968f-0c6dd9ecdbeb"
+  }
+}

@@ -1,0 +1,10 @@
+relationship c6b70461-a379-4c2b-9881-fe3050d34a37
+	joinOnDateBehavior: datePartOnly
+	fromColumn: index_1cafe.date
+	toColumn: LocalDateTable_82fd0d91-ba5a-45a3-8803-ca37ed3a9748.Date
+
+relationship 7b482a33-80ed-4137-b96e-ab7cad1af3eb
+	joinOnDateBehavior: datePartOnly
+	fromColumn: index_1cafe.datetime
+	toColumn: LocalDateTable_6b861f22-7aec-4c68-b2c5-d2442a957ace.Date
+
